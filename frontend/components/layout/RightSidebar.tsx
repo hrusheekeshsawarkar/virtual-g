@@ -68,7 +68,7 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
 
   if (isCollapsed) {
     return (
-      <div className="flex h-full w-12 flex-col bg-card border-l border-white/10">
+      <div className="flex h-full w-12 flex-col bg-card border-l border-white/10 md:w-12 w-[12vw] min-w-[48px]">
         <button 
           onClick={() => setIsCollapsed(false)}
           className="flex h-12 items-center justify-center border-b border-white/10 hover:bg-white/5 transition-colors"
@@ -101,7 +101,7 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
   }
 
   return (
-    <div className="flex h-full w-80 flex-col bg-card border-l border-white/10">
+    <div className="flex h-full w-80 flex-col bg-card border-l border-white/10 md:w-80 w-[85vw] max-w-sm">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-white/10">
         <h2 className="text-lg font-semibold text-white">Chat Sessions</h2>

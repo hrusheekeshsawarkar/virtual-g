@@ -1,10 +1,12 @@
 "use client"
 import Image from 'next/image'
-import { Heart, Settings, User } from 'lucide-react'
+import { Heart, LogOut, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function LeftSidebar() {
+  const router = useRouter()
   return (
-    <div className="flex h-full w-64 flex-col bg-card border-r border-white/10">
+    <div className="flex h-full w-64 flex-col bg-card border-r border-white/10 md:w-64 w-[85vw] max-w-sm">
       {/* Avatar Section */}
       <div className="flex flex-col items-center p-6 border-b border-white/10">
         <div className="relative mb-4">
@@ -48,13 +50,20 @@ export function LeftSidebar() {
       <div className="p-4 flex-1">
         <h3 className="text-sm font-medium text-white/80 mb-3">Quick Actions</h3>
         <div className="space-y-2">
-          <button className="flex w-full items-center gap-3 rounded-lg bg-white/5 p-3 text-left text-sm hover:bg-white/10 transition-colors">
+          <button
+            onClick={() => router.push('/profile')}
+            className="flex w-full items-center gap-3 rounded-lg bg-white/5 p-3 text-left text-sm hover:bg-white/10 transition-colors">
             <User size={16} className="text-primary" />
             <span className="text-white/80">Profile</span>
           </button>
-          <button className="flex w-full items-center gap-3 rounded-lg bg-white/5 p-3 text-left text-sm hover:bg-white/10 transition-colors">
-            <Settings size={16} className="text-primary" />
-            <span className="text-white/80">Settings</span>
+          <button
+            onClick={() => {
+              localStorage.removeItem('vg_token')
+              router.push('/login')
+            }}
+            className="flex w-full items-center gap-3 rounded-lg bg-white/5 p-3 text-left text-sm hover:bg-white/10 transition-colors">
+            <LogOut size={16} className="text-primary" />
+            <span className="text-white/80">Logout</span>
           </button>
         </div>
       </div>

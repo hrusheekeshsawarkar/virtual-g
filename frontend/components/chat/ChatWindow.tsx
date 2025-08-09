@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { apiGet, apiPost } from '@/lib/api'
 import { ChatInput } from './ChatInput'
 import { MessageList } from './MessageList'
@@ -18,6 +18,7 @@ interface ChatWindowProps {
 
 export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
   const [messages, setMessages] = useState<Message[]>([])
+  const [isWaiting, setIsWaiting] = useState(false)
   const messagesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -33,8 +34,11 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
     }
   }, [sessionId])
 
-  useEffect(() => {
-    messagesRef.current?.scrollTo({ top: messagesRef.current.scrollHeight, behavior: 'smooth' })
+  // Keep view pinned to bottom when new messages arrive without visible jump
+  useLayoutEffect(() => {
+    const el = messagesRef.current
+    if (!el) return
+    el.scrollTop = el.scrollHeight
   }, [messages])
 
   async function handleSend(text: string | null, file: File | null) {
@@ -55,16 +59,36 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
       ])
     }
 
+    // Show typing indicator while waiting
+    setIsWaiting(true)
     const url = sessionId ? `/chat?session_id=${sessionId}` : '/chat'
-    const data = await apiPost<{ reply: Message }>(url, { text, image_url })
-    setMessages((prev) => [...prev, data.reply])
-    onSessionChange?.() // Notify parent that session may have changed
+    try {
+      const data = await apiPost<{ reply: Message }>(url, { text, image_url })
+      setMessages((prev) => [...prev, data.reply])
+      onSessionChange?.() // Notify parent that session may have changed
+    } finally {
+      setIsWaiting(false)
+    }
   }
 
   return (
     <div className="flex h-full flex-col">
       <div ref={messagesRef} className="flex-1 overflow-y-auto scrollbar-thin p-4">
         <MessageList messages={messages} />
+        {isWaiting && (
+          <div className="mt-3 flex justify-start">
+            <div className="rounded-2xl bg-card text-white px-4 py-3 text-sm shadow-md">
+              <div className="flex items-center gap-2">
+                <span className="opacity-70">Virtual-G is typing</span>
+                <span className="inline-flex gap-1">
+                  <span className="h-1 w-1 animate-bounce rounded-full bg-white/70 [animation-delay:-0.2s]"></span>
+                  <span className="h-1 w-1 animate-bounce rounded-full bg-white/70 [animation-delay:-0.1s]"></span>
+                  <span className="h-1 w-1 animate-bounce rounded-full bg-white/70"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className="border-t border-white/10 p-4">
         <ChatInput onSend={handleSend} />

@@ -43,6 +43,31 @@ async def chat_endpoint(payload: ChatRequest, session_id: str = None, current_us
 
     db = get_db()
     
+    # Check if user has sufficient credits
+    user_credits_available = current_user.get("credits_available", 0)
+    user_input_words = count_words(payload.text) + count_words(payload.image_url)
+    
+    # Estimate AI response words (rough estimate based on input)
+    estimated_ai_words = min(max(user_input_words * 2, 50), 500)  # 2x input, min 50, max 500
+    estimated_total_words = user_input_words + estimated_ai_words
+    
+    if user_credits_available < estimated_total_words:
+        # Calculate how many credits are needed
+        credits_needed = estimated_total_words - user_credits_available
+        # Round up to nearest 1000 for payment
+        credits_to_purchase = ((credits_needed - 1) // 1000 + 1) * 1000
+        
+        raise HTTPException(
+            status_code=402,  # Payment Required
+            detail={
+                "error": "insufficient_credits",
+                "message": f"You need {credits_needed} more credits to continue. Consider purchasing {credits_to_purchase} credits.",
+                "current_balance": user_credits_available,
+                "required": estimated_total_words,
+                "suggested_purchase": credits_to_purchase
+            }
+        )
+    
     if session_id:
         # Use specific session
         from bson import ObjectId
@@ -100,9 +125,16 @@ async def chat_endpoint(payload: ChatRequest, session_id: str = None, current_us
     user_words = count_words(payload.text) + count_words(payload.image_url)
     ai_words = count_words(ai_text)
     total_increment = user_words + ai_words
+    
+    # Deduct from available credits and track usage
     await db["users"].update_one(
         {"email": current_user["email"]},
-        {"$inc": {"credits_used": total_increment}},
+        {
+            "$inc": {
+                "credits_used": total_increment,
+                "credits_available": -total_increment
+            }
+        },
     )
 
     reply = ChatMessage(**ai_message)

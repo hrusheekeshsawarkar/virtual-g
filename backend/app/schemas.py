@@ -22,6 +22,8 @@ class UserOut(BaseModel):
     id: str
     email: EmailStr
     credits_used: int
+    credits_available: int
+    total_credits_purchased: int
 
 
 MessageRole = Literal["user", "ai"]
@@ -52,5 +54,31 @@ class ChatHistoryResponse(BaseModel):
 
 class UsageResponse(BaseModel):
     credits_used: int
+    credits_available: int
+    total_credits_purchased: int
+
+
+class CreditPackage(BaseModel):
+    credits: int
+    price_gbp: float
+    popular: bool = False
+    discount: Optional[str] = None
+
+
+class PaymentIntentRequest(BaseModel):
+    credits: int
+
+
+class PaymentIntentResponse(BaseModel):
+    client_secret: str
+    payment_intent_id: str
+    amount: int  # Amount in pence
+    currency: str
+
+
+class CreditPurchaseResponse(BaseModel):
+    success: bool
+    credits_added: int
+    new_balance: int
 
 

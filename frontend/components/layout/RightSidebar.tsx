@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Plus, MessageCircle, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { CreditBalance } from '@/components/payments/CreditBalance'
 import { apiGet, apiPost, apiDelete } from '@/lib/api'
 
 interface ChatSession {
@@ -113,8 +114,13 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
         </button>
       </div>
 
-      {/* New Chat Button */}
+      {/* Credit Balance */}
       <div className="p-4 border-b border-white/10">
+        <CreditBalance />
+      </div>
+
+      {/* New Chat Button */}
+      <div className="px-4 pb-4">
         <Button onClick={handleNewChat} className="w-full" size="sm">
           <Plus size={16} className="mr-2" />
           New Chat

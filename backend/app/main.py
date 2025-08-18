@@ -6,6 +6,7 @@ from .routes.chat import router as chat_router
 from .routes.usage import router as usage_router
 from .routes.upload import router as upload_router
 from .routes.sessions import router as sessions_router
+from .routes.payments import router as payments_router
 from .db import init_indexes
 from pathlib import Path
 
@@ -27,6 +28,7 @@ def create_app() -> FastAPI:
     app.include_router(usage_router, prefix="/api", tags=["usage"])
     app.include_router(upload_router, prefix="/api", tags=["upload"])
     app.include_router(sessions_router, prefix="/api", tags=["sessions"])
+    app.include_router(payments_router, prefix="/api", tags=["payments"])
 
     # Static uploads (resolve relative to this file)
     uploads_dir = Path(__file__).parent / "uploads"

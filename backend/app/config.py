@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     openrouter_api_key: str = Field(..., env="OPENROUTER_API_KEY")
     openrouter_model: str = Field("openrouter/auto", env="OPENROUTER_MODEL")
     database_name: str = Field("virtual_g", env="MONGODB_DB")
+    stripe_secret_key: str = Field(..., env="STRIPE_SECRET_KEY")
+    stripe_publishable_key: str = Field(..., env="STRIPE_PUBLISHABLE_KEY")
+    stripe_webhook_secret: str = Field(..., env="STRIPE_WEBHOOK_SECRET")
 
     model_config = SettingsConfigDict(
         env_file=Path(__file__).parent.parent / "env",

@@ -15,7 +15,13 @@ async def register_user(user: UserCreate):
     existing = await db["users"].find_one({"email": user.email})
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
-    doc = {"email": user.email, "password_hash": hash_password(user.password), "credits_used": 0}
+    doc = {
+        "email": user.email, 
+        "password_hash": hash_password(user.password), 
+        "credits_used": 0,
+        "credits_available": 1000,  # Give new users 1000 free credits
+        "total_credits_purchased": 0
+    }
     await db["users"].insert_one(doc)
     token = create_access_token(subject=user.email)
     return {"access_token": token, "token_type": "bearer"}

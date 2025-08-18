@@ -7,6 +7,8 @@ class UserDocument(TypedDict, total=False):
     email: str
     password_hash: str
     credits_used: int
+    credits_available: int  # Available tokens that can be used
+    total_credits_purchased: int  # Total credits ever purchased
 
 
 MessageRole = Literal["user", "ai"]

@@ -72,8 +72,7 @@ This usually means:
 ### Fix Steps:
 1. **Check your backend env file**:
    ```env
-   STRIPE_SECRET_KEY=sk_test_51RxVQCIcxomAZY1wMUkBh86JI8j0JOOODRmQUscnlUMe7Z7It060Eaw8rkiLEfipnOBQkeIO9LuvB3Ni6I1jNSFz007IJkmPQ4
-   STRIPE_PUBLISHABLE_KEY=pk_test_51RxVQCIcxomAZY1wJV8v9sFA5ICLnA2WQhYTQP5IRjPkuzqlfSNCzr9krE4WIY5Rmfk9lsLTAlVRK2uWqo45EQQO00Nba0FgxD
+
    ```
 
 2. **Restart your backend server** after adding the env variables

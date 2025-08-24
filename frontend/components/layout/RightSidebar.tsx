@@ -69,17 +69,17 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
 
   if (isCollapsed) {
     return (
-      <div className="flex h-full w-12 flex-col bg-card border-l border-white/10 md:w-12 w-[12vw] min-w-[48px]">
+      <div className="flex h-full w-12 flex-col bg-card border-l border-white/10 min-w-[48px]">
         <button 
           onClick={() => setIsCollapsed(false)}
-          className="flex h-12 items-center justify-center border-b border-white/10 hover:bg-white/5 transition-colors"
+          className="flex h-12 items-center justify-center border-b border-white/10 hover:bg-white/5 transition-colors touch-manipulation"
         >
           <ChevronLeft size={16} className="text-white/60" />
         </button>
         <div className="flex-1 flex flex-col items-center gap-3 p-2">
           <button 
             onClick={handleNewChat}
-            className="p-2 rounded-lg bg-primary hover:opacity-90 transition-opacity"
+            className="p-2 rounded-lg bg-primary hover:opacity-90 transition-opacity touch-manipulation"
           >
             <Plus size={16} />
           </button>
@@ -87,7 +87,7 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
             <button
               key={session.id}
               onClick={() => onSessionSelect(session.id)}
-              className={`p-2 rounded-lg transition-colors ${
+              className={`p-2 rounded-lg transition-colors touch-manipulation ${
                 selectedSession === session.id 
                   ? 'bg-primary/20 ring-1 ring-primary' 
                   : 'bg-white/5 hover:bg-white/10'
@@ -102,13 +102,13 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
   }
 
   return (
-    <div className="flex h-full w-80 flex-col bg-card border-l border-white/10 md:w-80 w-[85vw] max-w-sm">
+    <div className="flex h-full w-full sm:w-80 flex-col bg-card border-l border-white/10 max-w-sm">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-white/10">
-        <h2 className="text-lg font-semibold text-white">Chat Sessions</h2>
+      <div className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10">
+        <h2 className="text-base sm:text-lg font-semibold text-white">Chat Sessions</h2>
         <button 
           onClick={() => setIsCollapsed(true)}
-          className="p-1 rounded hover:bg-white/10 transition-colors"
+          className="p-1 rounded hover:bg-white/10 transition-colors touch-manipulation hidden md:block"
         >
           <ChevronRight size={16} className="text-white/60" />
         </button>
@@ -120,8 +120,8 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
       </div>
 
       {/* New Chat Button */}
-      <div className="px-4 pb-4">
-        <Button onClick={handleNewChat} className="w-full" size="sm">
+      <div className="px-3 sm:px-4 pb-3 sm:pb-4">
+        <Button onClick={handleNewChat} className="w-full touch-manipulation" size="sm">
           <Plus size={16} className="mr-2" />
           New Chat
         </Button>
@@ -136,26 +136,26 @@ export function RightSidebar({ selectedSession, onSessionSelect, onNewChat, onSe
             <div className="text-center text-white/60 text-sm p-4">No chat sessions yet</div>
           ) : (
             sessions.map((session) => (
-              <div
-                key={session.id}
-                onClick={() => onSessionSelect(session.id)}
-                className={`group relative rounded-lg p-3 cursor-pointer transition-all ${
-                  selectedSession === session.id 
-                    ? 'bg-primary/10 ring-1 ring-primary/30' 
-                    : 'hover:bg-white/5'
-                }`}
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-sm font-medium text-white truncate pr-2">
-                    {session.title}
-                  </h3>
-                  <button 
-                    onClick={(e) => handleDeleteSession(session.id, e)}
-                    className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-500/20 transition-all"
-                  >
-                    <Trash2 size={12} className="text-red-400" />
-                  </button>
-                </div>
+                              <div
+                  key={session.id}
+                  onClick={() => onSessionSelect(session.id)}
+                  className={`group relative rounded-lg p-2 sm:p-3 cursor-pointer transition-all touch-manipulation ${
+                    selectedSession === session.id 
+                      ? 'bg-primary/10 ring-1 ring-primary/30' 
+                      : 'hover:bg-white/5'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-xs sm:text-sm font-medium text-white truncate pr-2">
+                      {session.title}
+                    </h3>
+                    <button 
+                      onClick={(e) => handleDeleteSession(session.id, e)}
+                      className="opacity-70 sm:opacity-0 sm:group-hover:opacity-100 p-1 rounded hover:bg-red-500/20 transition-all touch-manipulation"
+                    >
+                      <Trash2 size={12} className="text-red-400" />
+                    </button>
+                  </div>
                 
                 <p className="text-xs text-white/60 line-clamp-2 mb-2">
                   {session.lastMessage || 'No messages yet'}

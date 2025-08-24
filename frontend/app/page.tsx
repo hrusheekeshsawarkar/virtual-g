@@ -41,27 +41,29 @@ export default function HomePage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Bar */}
-        <header className="flex items-center justify-between p-4 border-b border-white/10 bg-card/30">
-          <div className="flex items-center gap-3">
+        <header className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10 bg-card/30 safe-area-inset">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             {/* Mobile menu buttons */}
             <button
-              className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 transition-colors touch-manipulation"
               onClick={() => setShowLeftMobile(true)}
               aria-label="Open avatar panel"
             >
               <Menu size={18} />
             </button>
-            <h1 className="text-lg font-semibold text-white">Chat with Virtual-G</h1>
-            <p className="text-xs text-white/60">She's online and ready to chat 💕</p>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-base sm:text-lg font-semibold text-white truncate">Chat with Virtual-G</h1>
+              <p className="hidden xs:block text-xs text-white/60">She's online and ready to chat 💕</p>
+            </div>
           </div>
-          <nav className="flex items-center gap-2 md:gap-4 text-sm">
+          <nav className="flex items-center gap-2 text-sm">
             <button
-              className="md:hidden inline-flex items-center gap-2 rounded-lg bg-primary/20 px-3 py-2 text-primary hover:bg-primary/30 transition-colors"
+              className="md:hidden inline-flex items-center gap-1 sm:gap-2 rounded-lg bg-primary/20 px-2 sm:px-3 py-2 text-primary hover:bg-primary/30 transition-colors touch-manipulation text-xs sm:text-sm"
               onClick={() => setShowRightMobile(true)}
               aria-label="Open chat sessions"
             >
-              <MessagesSquare size={16} />
-              Sessions
+              <MessagesSquare size={14} className="sm:w-4 sm:h-4" />
+              <span className="hidden xs:inline">Sessions</span>
             </button>
           </nav>
         </header>
@@ -88,11 +90,11 @@ export default function HomePage() {
 
       {/* Left Sidebar (mobile overlay) */}
       {showLeftMobile && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden" onClick={() => setShowLeftMobile(false)}>
-          <div className="absolute left-0 top-0 h-full" onClick={(e) => e.stopPropagation()}>
-            <div className="flex h-12 items-center justify-end pr-2">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden touch-manipulation" onClick={() => setShowLeftMobile(false)}>
+          <div className="absolute left-0 top-0 h-full w-full max-w-sm animate-in slide-in-from-left duration-300" onClick={(e) => e.stopPropagation()}>
+            <div className="flex h-12 items-center justify-end pr-2 safe-area-inset">
               <button
-                className="m-2 inline-flex h-8 w-8 items-center justify-center rounded bg-white/10 hover:bg-white/20"
+                className="m-2 inline-flex h-8 w-8 items-center justify-center rounded bg-white/10 hover:bg-white/20 touch-manipulation"
                 onClick={() => setShowLeftMobile(false)}
                 aria-label="Close"
               >
@@ -106,11 +108,11 @@ export default function HomePage() {
 
       {/* Right Sidebar (mobile overlay) */}
       {showRightMobile && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden" onClick={() => setShowRightMobile(false)}>
-          <div className="absolute right-0 top-0 h-full" onClick={(e) => e.stopPropagation()}>
-            <div className="flex h-12 items-center justify-start pl-2">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden touch-manipulation" onClick={() => setShowRightMobile(false)}>
+          <div className="absolute right-0 top-0 h-full w-full max-w-sm animate-in slide-in-from-right duration-300" onClick={(e) => e.stopPropagation()}>
+            <div className="flex h-12 items-center justify-start pl-2 safe-area-inset">
               <button
-                className="m-2 inline-flex h-8 w-8 items-center justify-center rounded bg-white/10 hover:bg-white/20"
+                className="m-2 inline-flex h-8 w-8 items-center justify-center rounded bg-white/10 hover:bg-white/20 touch-manipulation"
                 onClick={() => setShowRightMobile(false)}
                 aria-label="Close"
               >

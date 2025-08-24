@@ -30,7 +30,7 @@ export function ChatInput({ onSend }: { onSend: (text: string | null, file: File
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-end gap-3 rounded-xl bg-card/50 p-3">
+    <form onSubmit={handleSubmit} className="flex items-end gap-2 sm:gap-3 rounded-xl bg-card/50 p-2 sm:p-3">
       {/* <label className={`inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 p-2 transition-colors ${isSending ? 'opacity-50 pointer-events-none' : 'cursor-pointer hover:bg-white/10'}`}>
         <ImageIcon size={18} className="text-white/70" />
         <input ref={fileRef} type="file" accept="image/*" className="hidden" />
@@ -47,13 +47,18 @@ export function ChatInput({ onSend }: { onSend: (text: string | null, file: File
           }
         }}
         placeholder="Type something sweet..."
-        className="min-h-[48px] flex-1 resize-none"
+        className="min-h-[44px] sm:min-h-[48px] flex-1 resize-none text-sm sm:text-base"
         disabled={isSending}
         rows={1}
       />
-      <Button type="submit" disabled={isSending} size="md" className="h-26 px-4">
-        <Send size={16} className={isSending ? "mr-2" : ""} />
-        {isSending ? "Sending..." : "Send"}
+      <Button 
+        type="submit" 
+        disabled={isSending} 
+        size="sm" 
+        className="h-11 sm:h-12 px-3 sm:px-4 touch-manipulation text-sm sm:text-base min-w-[70px] sm:min-w-[80px]"
+      >
+        <Send size={14} className={`sm:w-4 sm:h-4 ${isSending ? "mr-1 sm:mr-2" : ""}`} />
+        <span className="hidden xs:inline">{isSending ? "Sending..." : "Send"}</span>
       </Button>
     </form>
   )

@@ -23,21 +23,33 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-4">
-      <form onSubmit={onSubmit} className="glass w-full max-w-sm space-y-4 rounded-xl p-6">
-        <h1 className="text-xl font-semibold">Create account</h1>
+    <main className="flex min-h-screen items-center justify-center p-3 sm:p-4 safe-area-inset">
+      <form onSubmit={onSubmit} className="glass w-full max-w-sm space-y-4 rounded-xl p-4 sm:p-6">
+        <h1 className="text-lg sm:text-xl font-semibold">Create account</h1>
         <div className="space-y-2">
           <label className="text-sm opacity-80">Email</label>
-          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <Input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+            className="touch-manipulation"
+          />
         </div>
         <div className="space-y-2">
           <label className="text-sm opacity-80">Password</label>
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <Input 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+            className="touch-manipulation"
+          />
         </div>
         {error && <div className="text-sm text-red-400">{error}</div>}
-        <Button className="w-full" type="submit">Register</Button>
+        <Button className="w-full touch-manipulation" type="submit">Register</Button>
         <p className="text-center text-sm text-white/60">
-          Already have an account? <a className="text-primary" href="/login">Login</a>
+          Already have an account? <a className="text-primary hover:text-primary/80 transition-colors touch-manipulation" href="/login">Login</a>
         </p>
       </form>
     </main>

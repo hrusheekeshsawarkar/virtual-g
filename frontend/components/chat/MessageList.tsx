@@ -23,16 +23,22 @@ export function MessageList({ messages }: { messages: Message[] }) {
             className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-md ${
+              className={`max-w-[90%] sm:max-w-[85%] rounded-2xl px-3 sm:px-4 py-2 sm:py-3 text-sm shadow-md ${
                 m.role === 'user' ? 'bg-primary text-white' : 'bg-card text-white'
               }`}
             >
               {m.type === 'image' ? (
                 <div className="space-y-2">
-                  <Image src={toApiAbsoluteUrl(m.content)} alt="uploaded" width={320} height={320} className="rounded-lg" />
+                  <Image 
+                    src={toApiAbsoluteUrl(m.content)} 
+                    alt="uploaded" 
+                    width={280} 
+                    height={280} 
+                    className="rounded-lg w-full max-w-[280px] sm:max-w-[320px] h-auto" 
+                  />
                 </div>
               ) : (
-                <p className="whitespace-pre-wrap leading-relaxed">{m.content}</p>
+                <p className="whitespace-pre-wrap leading-relaxed text-sm sm:text-base">{m.content}</p>
               )}
             </div>
           </motion.div>

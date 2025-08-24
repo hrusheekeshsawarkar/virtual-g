@@ -13,6 +13,21 @@ html, body, #__next {
 body {
   background: theme('colors.background');
   color: theme('colors.foreground');
+  /* Prevent horizontal scrolling on mobile */
+  overflow-x: hidden;
+}
+
+/* Ensure proper viewport handling on mobile */
+@media screen and (max-width: 768px) {
+  html {
+    /* Prevent zoom on input focus on iOS */
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    /* Improve touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .glass {
@@ -27,6 +42,27 @@ body {
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background: #292933;
   border-radius: 9999px;
+}
+
+/* Mobile-specific scrollbar styling */
+@media screen and (max-width: 768px) {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
+/* Utility classes for mobile responsiveness */
+@layer utilities {
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  .safe-area-inset {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
 }
 
 

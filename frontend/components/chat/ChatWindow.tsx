@@ -116,13 +116,13 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
   return (
     <>
       <div className="flex h-full flex-col">
-        <div ref={messagesRef} className="flex-1 overflow-y-auto scrollbar-thin p-4">
+        <div ref={messagesRef} className="flex-1 overflow-y-auto scrollbar-thin p-3 sm:p-4">
           <MessageList messages={messages} />
           {isWaiting && (
             <div className="mt-3 flex justify-start">
-              <div className="rounded-2xl bg-card text-white px-4 py-3 text-sm shadow-md">
+              <div className="rounded-2xl bg-card text-white px-3 sm:px-4 py-2 sm:py-3 text-sm shadow-md">
                 <div className="flex items-center gap-2">
-                  <span className="opacity-70">Virtual-G is typing</span>
+                  <span className="opacity-70 text-xs sm:text-sm">Virtual-G is typing</span>
                   <span className="inline-flex gap-1">
                     <span className="h-1 w-1 animate-bounce rounded-full bg-white/70 [animation-delay:-0.2s]"></span>
                     <span className="h-1 w-1 animate-bounce rounded-full bg-white/70 [animation-delay:-0.1s]"></span>
@@ -133,12 +133,12 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
             </div>
           )}
           {paymentError && (
-            <div className="mt-3 p-4 bg-orange-50 border border-orange-200 rounded-lg">
-              <p className="text-orange-800 text-sm">{paymentError}</p>
+            <div className="mt-3 p-3 sm:p-4 bg-orange-50 border border-orange-200 rounded-lg">
+              <p className="text-orange-800 text-xs sm:text-sm">{paymentError}</p>
             </div>
           )}
         </div>
-        <div className="border-t border-white/10 p-4">
+        <div className="border-t border-white/10 p-3 sm:p-4 safe-area-inset">
           <ChatInput onSend={handleSend} />
         </div>
       </div>

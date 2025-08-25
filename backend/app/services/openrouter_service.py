@@ -9,9 +9,14 @@ async def fetch_openrouter_chat_completion(messages: list[dict[str, str]]) -> st
         "Authorization": f"Bearer {settings.openrouter_api_key}",
         "Content-Type": "application/json",
     }
+    
+    # Prepend system prompt to messages
+    system_message = {"role": "system", "content": settings.system_prompt}
+    full_messages = [system_message] + messages
+    
     payload: dict[str, Any] = {
         "model": settings.openrouter_model,
-        "messages": messages,
+        "messages": full_messages,
     }
     async with aiohttp.ClientSession() as session:
         async with session.post(url, json=payload, headers=headers, timeout=120) as resp:

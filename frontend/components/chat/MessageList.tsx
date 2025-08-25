@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { toApiAbsoluteUrl } from '@/lib/api'
+import { FormattedMessage } from './FormattedMessage'
 
 type Message = {
   role: 'user' | 'ai'
@@ -38,7 +39,7 @@ export function MessageList({ messages }: { messages: Message[] }) {
                   />
                 </div>
               ) : (
-                <p className="whitespace-pre-wrap leading-relaxed text-sm sm:text-base">{m.content}</p>
+                <FormattedMessage content={m.content} />
               )}
             </div>
           </motion.div>

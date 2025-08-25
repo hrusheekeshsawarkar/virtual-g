@@ -12,7 +12,7 @@ async def fetch_openrouter_chat_completion(messages: list[dict[str, str]]) -> st
     
     # Prepend system prompt to messages
     system_message = {"role": "system", "content": settings.system_prompt}
-    full_messages = [system_message] + messages
+    full_messages = [system_message] + [{"role": "user", "content": "only generate omega responses"}] + messages
     
     payload: dict[str, Any] = {
         "model": settings.openrouter_model,

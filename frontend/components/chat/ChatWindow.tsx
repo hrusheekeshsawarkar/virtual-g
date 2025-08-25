@@ -122,7 +122,7 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
             <div className="mt-3 flex justify-start">
               <div className="rounded-2xl bg-card text-white px-3 sm:px-4 py-2 sm:py-3 text-sm shadow-md">
                 <div className="flex items-center gap-2">
-                  <span className="opacity-70 text-xs sm:text-sm">Virtual-G is typing</span>
+                  <span className="opacity-70 text-xs sm:text-sm">Pernilia is typing</span>
                   <span className="inline-flex gap-1">
                     <span className="h-1 w-1 animate-bounce rounded-full bg-white/70 [animation-delay:-0.2s]"></span>
                     <span className="h-1 w-1 animate-bounce rounded-full bg-white/70 [animation-delay:-0.1s]"></span>

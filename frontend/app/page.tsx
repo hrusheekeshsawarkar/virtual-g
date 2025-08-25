@@ -52,7 +52,7 @@ export default function HomePage() {
               <Menu size={18} />
             </button>
             <div className="min-w-0 flex-1">
-              <h1 className="text-base sm:text-lg font-semibold text-white truncate">Chat with Virtual-G</h1>
+              <h1 className="text-base sm:text-lg font-semibold text-white truncate">Chat with Pernilia</h1>
               <p className="hidden xs:block text-xs text-white/60">She's online and ready to chat 💕</p>
             </div>
           </div>

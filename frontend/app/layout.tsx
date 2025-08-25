@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Virtual-G',
+  title: 'Pernilia',
   description: 'Chat with your flirty virtual AI companion',
 }
 

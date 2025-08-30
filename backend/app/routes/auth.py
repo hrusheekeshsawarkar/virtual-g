@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import EmailStr
 from ..db import get_db
 from ..schemas import UserCreate, Token
-from ..auth import hash_password, verify_password, create_access_token
+from ..auth import hash_password, verify_password, create_access_token, get_current_user
 
 
 router = APIRouter()
@@ -35,5 +35,15 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
         raise HTTPException(status_code=400, detail="Incorrect email or password")
     token = create_access_token(subject=form_data.username)
     return {"access_token": token, "token_type": "bearer"}
+
+
+@router.get("/debug/me")
+async def debug_current_user(current_user=Depends(get_current_user)):
+    """Debug endpoint to check if authentication is working"""
+    return {
+        "message": "Authentication working!",
+        "user": current_user,
+        "timestamp": "2025-01-30"
+    }
 
 

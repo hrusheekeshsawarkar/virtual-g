@@ -4,6 +4,8 @@ import { apiGet, apiPost } from '@/lib/api'
 import { ChatInput } from './ChatInput'
 import { MessageList } from './MessageList'
 import { PaymentModal } from '../payments/PaymentModal'
+import { VoiceChat } from '../voice/VoiceChat'
+import { Button } from '../ui/Button'
 
 type Message = {
   role: 'user' | 'ai'
@@ -23,6 +25,7 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [paymentError, setPaymentError] = useState<string | null>(null)
   const [currentBalance, setCurrentBalance] = useState(0)
+  const [showVoiceChat, setShowVoiceChat] = useState(false)
   const messagesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -139,7 +142,19 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
           )}
         </div>
         <div className="border-t border-white/10 p-3 sm:p-4 safe-area-inset">
-          <ChatInput onSend={handleSend} />
+          <div className="flex flex-col gap-3">
+            <div className="flex gap-2">
+              <Button 
+                onClick={() => setShowVoiceChat(true)}
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-2"
+              >
+                🎤 Voice Chat
+              </Button>
+            </div>
+            <ChatInput onSend={handleSend} />
+          </div>
         </div>
       </div>
       
@@ -149,6 +164,10 @@ export function ChatWindow({ sessionId, onSessionChange }: ChatWindowProps) {
         onSuccess={handlePaymentSuccess}
         currentBalance={currentBalance}
       />
+      
+      {showVoiceChat && (
+        <VoiceChat onClose={() => setShowVoiceChat(false)} />
+      )}
     </>
   )
 }

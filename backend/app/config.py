@@ -151,6 +151,11 @@ class Settings(BaseSettings):
     stripe_secret_key: str = Field(..., env="STRIPE_SECRET_KEY")
     stripe_publishable_key: str = Field(..., env="STRIPE_PUBLISHABLE_KEY")
     stripe_webhook_secret: str = Field(..., env="STRIPE_WEBHOOK_SECRET")
+    
+    # LiveKit configuration
+    livekit_api_key: str = Field(..., env="LIVEKIT_API_KEY")
+    livekit_api_secret: str = Field(..., env="LIVEKIT_API_SECRET")
+    livekit_ws_url: str = Field("ws://localhost:7880", env="LIVEKIT_WS_URL")
 
     model_config = SettingsConfigDict(
         env_file=Path(__file__).parent.parent / "env",

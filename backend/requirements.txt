@@ -13,4 +13,6 @@ livekit
 livekit-agents
 livekit-plugins-openai
 livekit-plugins-silero
+livekit-plugins-deepgram
+livekit-plugins-elevenlabs
 python-dotenv
